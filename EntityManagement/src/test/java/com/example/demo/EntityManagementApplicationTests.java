@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.assertj.core.util.Arrays;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.junit4.SpringRunner;
+
 
 import com.example.builder.DoctorBuilder;
 import com.example.builder.PatientBuilder;
@@ -39,76 +39,74 @@ public class EntityManagementApplicationTests {
 
 	@Test
 	public void testSystemHealth() {
-		ResponseEntity healthCheck = controller.healthCheck();
+		ResponseEntity<?> healthCheck = controller.healthCheck();
 		assertTrue(healthCheck.getStatusCode() == HttpStatus.OK);
 	}
 	
-//	@Test
-//    public void testCreatePatient() {
-//        EMSEntity emsEntity = PatientBuilder.createPatientWithAddress().inMemory();
-//        EntityRequest entityRequest = new EntityRequest("Patient", emsEntity);
-//        ResponseEntity responseEntity = controller.createEntity(entityRequest);
-//        assertTrue(responseEntity.getStatusCode() == HttpStatus.OK);
-//        assertTrue(((Patient)((EntityResponse)responseEntity.getBody()).getEntity()).getName().equals("Test_Name"));
-//    }
-//	
-//	@Test
-//    public void testUpdateAndGetPatient() {
-//        String type = "Patient";
-//        EMSEntity emsEntity = PatientBuilder.createPatient().inMemory();
-//        EntityRequest entityRequest = new EntityRequest(type, emsEntity);
-//        ResponseEntity responseEntity = controller.createEntity(entityRequest);
-//        assertTrue(responseEntity.getStatusCode() == HttpStatus.OK);
-//        Patient patient = (Patient)((EntityResponse)responseEntity.getBody()).getEntity();
-//        assertTrue(patient.getName().equals("Test_Name"));
-//
-//        patient.setName("Test_Name_2");
-//        entityRequest.setEntity(patient);
-//        responseEntity = controller.updateEntity(patient.getUuid(), entityRequest);
-//        assertTrue(responseEntity.getStatusCode() == HttpStatus.OK);
-//
-//        responseEntity = controller.getEntity(patient.getUuid(), type);
-//        assertTrue(responseEntity.getStatusCode() == HttpStatus.OK);
-//        patient = (Patient)((EntityResponse)responseEntity.getBody()).getEntity();
-//        assertTrue(patient.getName().equals("Test_Name_2"));
-//    }
-//	
-//	
-//	@Test
-//	public void testDeletePatient() {
-//		String type = "Patient";
-//		EMSEntity emsEntity = PatientBuilder.createPatient().inMemory();
-//		EntityRequest entityRequest = new EntityRequest(type, emsEntity);
-//		ResponseEntity responseEntity = controller.createEntity(entityRequest);
-//		assertTrue(responseEntity.getStatusCode() == HttpStatus.OK);
-//		Patient patient = (Patient) ((EntityResponse) responseEntity.getBody()).getEntity();
-//		assertTrue(patient.getName().equals("Test_Name"));
-//
-//		entityRequest.setEntity(patient);
-//
-//		responseEntity = controller.deleteEntity(patient.getUuid(), entityRequest);
-//		assertTrue(responseEntity.getStatusCode() == HttpStatus.OK);
-//
-//	}
-//	
-//	
-//	@Test
-//    public void testCreateAndGetDoctorWithAddress() {
-//        String typeDoctor = "Doctor";
-//        EMSEntity emsDoctorEntity = DoctorBuilder.createDoctorWithAddress().inMemory();
-//        EntityRequest entityDoctorRequest = new EntityRequest(typeDoctor, emsDoctorEntity);
-//        ResponseEntity responseDoctorEntity = controller.createEntity(entityDoctorRequest);
-//        assertTrue(responseDoctorEntity.getStatusCode() == HttpStatus.OK);
-//        Doctor doctor = (Doctor)((EntityResponse)responseDoctorEntity.getBody()).getEntity();
-//  
-//	}
+	@Test
+    public void testCreatePatient() {
+        EMSEntity emsEntity = PatientBuilder.createPatientWithAddress().inMemory();
+        EntityRequest entityRequest = new EntityRequest("Patient", emsEntity);
+        ResponseEntity<?> responseEntity = controller.createEntity(entityRequest);
+        assertTrue(responseEntity.getStatusCode() == HttpStatus.OK);
+        assertTrue(((Patient)((EntityResponse)responseEntity.getBody()).getEntity()).getName().equals("Test_Name"));
+    }
+	
+	@Test
+    public void testUpdateAndGetPatient() {
+        String type = "Patient";
+        EMSEntity emsEntity = PatientBuilder.createPatient().inMemory();
+        EntityRequest entityRequest = new EntityRequest(type, emsEntity);
+        ResponseEntity<?> responseEntity = controller.createEntity(entityRequest);
+        assertTrue(responseEntity.getStatusCode() == HttpStatus.OK);
+        Patient patient = (Patient)((EntityResponse)responseEntity.getBody()).getEntity();
+        assertTrue(patient.getName().equals("Test_Name"));
+
+        patient.setName("Test_Name_2");
+        entityRequest.setEntity(patient);
+        responseEntity = controller.updateEntity(patient.getUuid(), entityRequest);
+        assertTrue(responseEntity.getStatusCode() == HttpStatus.OK);
+
+        responseEntity = controller.getEntity(patient.getUuid(), type);
+        assertTrue(responseEntity.getStatusCode() == HttpStatus.OK);
+        patient = (Patient)((EntityResponse)responseEntity.getBody()).getEntity();
+        assertTrue(patient.getName().equals("Test_Name_2"));
+    }
+	
+	
+	@Test
+	public void testDeletePatient() {
+		String type = "Patient";
+		EMSEntity emsEntity = PatientBuilder.createPatient().inMemory();
+		EntityRequest entityRequest = new EntityRequest(type, emsEntity);
+		ResponseEntity<?> responseEntity = controller.createEntity(entityRequest);
+		assertTrue(responseEntity.getStatusCode() == HttpStatus.OK);
+		Patient patient = (Patient) ((EntityResponse) responseEntity.getBody()).getEntity();
+		assertTrue(patient.getName().equals("Test_Name"));
+
+		entityRequest.setEntity(patient);
+
+		responseEntity = controller.deleteEntity(patient.getUuid(), entityRequest);
+		assertTrue(responseEntity.getStatusCode() == HttpStatus.OK);
+
+	}
+	
+	
+	@Test
+    public void testCreateAndGetDoctorWithAddress() {
+		EMSEntity emsEntity = DoctorBuilder.createDoctorWithAddress().inMemory();
+        EntityRequest entityRequest = new EntityRequest("Doctor", emsEntity);
+        ResponseEntity<?> responseEntity = controller.createEntity(entityRequest);
+        assertTrue(responseEntity.getStatusCode() == HttpStatus.OK);
+       assertTrue(((Doctor)((EntityResponse)responseEntity.getBody()).getEntity()).getAddress().getCountry().equals( "UK"));
+    }
     
 	@Test
     public void testCreateAndGetDoctorAndPatient() {
         String typeDoctor = "Doctor";
         EMSEntity emsDoctorEntity = DoctorBuilder.createDoctor().inMemory();
         EntityRequest entityDoctorRequest = new EntityRequest(typeDoctor, emsDoctorEntity);
-        ResponseEntity responseDoctorEntity = controller.createEntity(entityDoctorRequest);
+        ResponseEntity<?> responseDoctorEntity = controller.createEntity(entityDoctorRequest);
         assertTrue(responseDoctorEntity.getStatusCode() == HttpStatus.OK);
         Doctor doctor = (Doctor)((EntityResponse)responseDoctorEntity.getBody()).getEntity();
         assertTrue(doctor.getName().equals("Test_Name_Doc"));     
@@ -153,7 +151,7 @@ public class EntityManagementApplicationTests {
 //        responseDoctorEntity = controller.updateEntity(doctor.getUuid(), entityDoctorRequest);
 //        assertTrue(responseDoctorEntity.getStatusCode() == HttpStatus.OK);
 //        
-//        responseDoctorEntity = controller.getEntity(doctor.getUuid(), typeDoctor);
+        responseDoctorEntity = controller.getEntity(doctor.getUuid(), typeDoctor);
         
         List<String> patientUuids = new ArrayList<>();
         patientUuids.add(patient.getUuid());
@@ -164,7 +162,7 @@ public class EntityManagementApplicationTests {
         
         responseDoctorEntity = controller.getEntity(doctor.getUuid(), typeDoctor);
         
-         assertTrue(responseDoctorEntity.getStatusCode() == HttpStatus.OK);
+        assertTrue(responseDoctorEntity.getStatusCode() == HttpStatus.OK);
         doctor = (Doctor)((EntityResponse)responseDoctorEntity.getBody()).getEntity();
         assertTrue(doctor.getName().equals("Test_Name_Doc"));
        // assertTrue(doctor.getPatients().get(0).getUuid().equals(patient.getUuid()));
