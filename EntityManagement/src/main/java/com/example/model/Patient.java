@@ -1,6 +1,6 @@
 package com.example.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.UUID;
 
 import org.springframework.data.annotation.Id;
@@ -15,8 +15,8 @@ public class Patient implements EMSEntity {
 	@Id
 	private String id;
 	private String name;
-	private String uuid = UUID.randomUUID().toString().toUpperCase().replaceAll("-", "");;
-	private LocalDateTime dateOfBirth;
+	private String uuid = UUID.randomUUID().toString().toUpperCase().replaceAll("-", "");
+	private LocalDate dateOfBirth;
 	private Address address;
 	
 	 private String consultingDoctorUuid;
@@ -63,11 +63,11 @@ public class Patient implements EMSEntity {
 		this.consultingDoctor = consultingDoctor;
 	}
 	
-	public LocalDateTime getDateOfBirth() {
+	public LocalDate getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(LocalDateTime dateOfBirth) {
+	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
@@ -86,6 +86,7 @@ public class Patient implements EMSEntity {
 		            "id=" + id +
 		            ", name='" + name + '\'' +
 		            ", uuid='" + uuid + '\'' +
+		            ", DateOfBirth='" + dateOfBirth + '\'' +
 		            ", consultingDoctorUuid='" + consultingDoctorUuid + '\'' +
 		            ", Address= '" + address + '\'' +
 		            '}';

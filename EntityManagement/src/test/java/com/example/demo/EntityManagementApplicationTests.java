@@ -2,9 +2,9 @@ package com.example.demo;
 
 import static org.junit.Assert.assertTrue;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-
 import com.example.builder.DoctorBuilder;
 import com.example.builder.PatientBuilder;
 import com.example.controller.EMSController;
@@ -24,6 +23,8 @@ import com.example.model.EMSEntity;
 import com.example.model.EntityRequest;
 import com.example.model.EntityResponse;
 import com.example.model.Patient;
+import com.example.utility.EntityHelper;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {EntityManagementApplication.class})
@@ -51,6 +52,30 @@ public class EntityManagementApplicationTests {
         assertTrue(responseEntity.getStatusCode() == HttpStatus.OK);
         assertTrue(((Patient)((EntityResponse)responseEntity.getBody()).getEntity()).getName().equals("Test_Name"));
     }
+	
+	
+	/**
+	 * https://stackoverflow.com/questions/11815155/date-in-mongodb-when-inserting-date-objects-into-mongo-database-the-date-becom
+	 * 
+	 * MongoDB stores times in UTC by default, and will convert any local time representations
+	 *  into this form. Applications that must operate or report on some
+	 *  unmodified local time value may store the time zone alongside the
+	 *  UTC timestamp, and compute the original local time in their 
+	 *  application logic.
+	 */
+	@Test
+    public void testCreatePatientWithDateOfBirth() {
+		
+		EntityHelper.applicationUTCTTimezoneCheck("2018-04-01 00:00");
+		
+        EMSEntity emsEntity = PatientBuilder.createPatientWithAddress().withDateOfBirth(LocalDate.parse("2018-04-01")).inMemory();
+        EntityRequest entityRequest = new EntityRequest("Patient", emsEntity);
+        ResponseEntity<?> responseEntity = controller.createEntity(entityRequest);
+        assertTrue(responseEntity.getStatusCode() == HttpStatus.OK);
+        assertTrue(((Patient)((EntityResponse)responseEntity.getBody()).getEntity()).getDateOfBirth().equals(LocalDate.parse("2018-04-01")));
+    }
+
+	
 	
 	@Test
     public void testUpdateAndGetPatient() {

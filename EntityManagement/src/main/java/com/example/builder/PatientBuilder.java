@@ -1,5 +1,7 @@
 package com.example.builder;
 
+import java.time.LocalDate;
+
 import com.example.model.Address;
 import com.example.model.Doctor;
 import com.example.model.EMSEntity;
@@ -21,6 +23,11 @@ public class PatientBuilder implements EntityBuilder {
     
     public PatientBuilder withAddress(Address address) {
     	patient.setAddress(address);
+        return this;
+    }
+    
+    public PatientBuilder withDateOfBirth(LocalDate dateOfBirth) {
+    	patient.setDateOfBirth(dateOfBirth);
         return this;
     }
     
@@ -65,12 +72,12 @@ public class PatientBuilder implements EntityBuilder {
 	public EMSEntity saveEntity(EMSEntity emsEntity) {
 		 Patient existingPatient = (Patient)emsEntity;
 		 return new PatientBuilder().withId(existingPatient.getId()).withName(existingPatient.getName())
-	            .withUuid(existingPatient.getUuid()).withAddress(existingPatient.getAddress()).withConsultingDoctor(existingPatient.getConsultingDoctor()).withConsultingDoctorUuid(existingPatient.getConsultingDoctorUuid()).inSaveDatabase();
+	            .withUuid(existingPatient.getUuid()).withDateOfBirth(existingPatient.getDateOfBirth()).withAddress(existingPatient.getAddress()).withConsultingDoctor(existingPatient.getConsultingDoctor()).withConsultingDoctorUuid(existingPatient.getConsultingDoctorUuid()).inSaveDatabase();
 	}
 
 	@Override
 	public EMSEntity inSaveDatabase() {
-		 return patientRepository.save(patient);
+		return patientRepository.save(patient);
 	}
 
 
@@ -78,7 +85,7 @@ public class PatientBuilder implements EntityBuilder {
 	public void deleteEntity(EMSEntity emsEntity) {
 		 Patient existingPatient = (Patient)emsEntity;
 		  new PatientBuilder().withId(existingPatient.getId()).withName(existingPatient.getName())
-	            .withUuid(existingPatient.getUuid()).withAddress(existingPatient.getAddress()).withConsultingDoctor(existingPatient.getConsultingDoctor()).withConsultingDoctorUuid(existingPatient.getConsultingDoctorUuid()).inDeleteDatabase();
+	            .withUuid(existingPatient.getUuid()).withDateOfBirth(existingPatient.getDateOfBirth()).withAddress(existingPatient.getAddress()).withConsultingDoctor(existingPatient.getConsultingDoctor()).withConsultingDoctorUuid(existingPatient.getConsultingDoctorUuid()).inDeleteDatabase();
 
 	}
 
