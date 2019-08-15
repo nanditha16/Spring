@@ -19,7 +19,7 @@ The following guides illustrate how to use some features concretely:
 1. Download and Install Kafka
 2. Java 1.8
 3. Maven Dependencies 
-4. Spring Boot Rest Applciation 
+4. Spring Boot Rest Application 
 
 5. Run ZooKeeper for Kafka
 6. Run Kafka Server
@@ -27,26 +27,28 @@ The following guides illustrate how to use some features concretely:
 Example: single broker cluster. 
 
 1. Starting Kafka Zookeeper:
+
  cd /kafka_2.12-2.3.0
 ./bin/kafka-server-start.sh config/server.properties
 
-2. Run Kafka Server to start the broker. This will : localhost/127.0.0.1:9000 default
-- Creating and Registering /brokers/ids/0
-- Listening Topic at 9092 as default
+2. Run Kafka Server to start the broker. 
 
 ./bin/kafka-server-start.sh config/server.properties
 
-:: Server details for teh Application is in application.yaml
+:: Server details for the Application is in application.yaml
 
 :: Test for PRODUCER AND CONSUMER From Command Line
 3. Create a topic for posting the message
+
 ./bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test
 
 4. Send some messages using the Kafka producer
+
 ./bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test
 >my first message
 >my second message
 
 5. Start the Kafka consumer to view the messages
+
  ./bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning
 
