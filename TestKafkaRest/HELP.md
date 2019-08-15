@@ -24,20 +24,21 @@ The following guides illustrate how to use some features concretely:
 5. Run ZooKeeper for Kafka
 6. Run Kafka Server
 
-Example: single broker cluster. 
+### Example: single broker cluster. 
 
 1. Starting Kafka Zookeeper:
 
  cd /kafka_2.12-2.3.0
-./bin/kafka-server-start.sh config/server.properties
+ ./bin/kafka-server-start.sh config/server.properties
 
 2. Run Kafka Server to start the broker. 
 
 ./bin/kafka-server-start.sh config/server.properties
 
-:: Server details for the Application is in application.yaml
+### :NOTE: Server details for the Application is in application.yaml
 
-:: Test for PRODUCER AND CONSUMER From Command Line
+### :NOTE: Test for PRODUCER AND CONSUMER From Command Line
+
 3. Create a topic for posting the message
 
 ./bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test
