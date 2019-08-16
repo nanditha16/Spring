@@ -21,7 +21,7 @@ For further reference, please consider the following sections:
 * [Kafka Docker Setup](http://wurstmeister.github.io/kafka-docker/)
 * [Kafka Docker-Compose Setup](https://linuxhint.com/docker_compose_kafka/)
 
-##Multiple_consumers_in_a_consumer_group
+### Multiple_consumers_in_a_consumer_group
 * [Following the post Spring Boot kafka-docker Practice](https://thepracticaldeveloper.com/2018/11/24/spring-boot-kafka-config/)
 
 ## Example Single stream command line
