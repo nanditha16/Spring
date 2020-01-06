@@ -13,6 +13,7 @@ public class LibraryMember {
 	
 	private String memberName;
 	private String gender;
+	private String email;
 	
 	// one to many relation
 	private List<Book> books;
@@ -24,11 +25,12 @@ public class LibraryMember {
 		super();
 	}
 
-	public LibraryMember(String memberId, String memberName, String gender, List<Book> books, Address address) {
+	public LibraryMember(String memberId, String memberName, String gender, String email, List<Book> books, Address address) {
 		super();
 		this.memberId = memberId;
 		this.memberName = memberName;
 		this.gender = gender;
+		this.email = email;
 		this.books = books;
 		this.address = address;
 	}
@@ -75,8 +77,16 @@ public class LibraryMember {
 
 	@Override
 	public String toString() {
-		return "LibraryMember [memberId=" + memberId + ", memberName=" + memberName + ", gender=" + gender + ", books="
+		return "LibraryMember [memberId=" + memberId + ", memberName=" + memberName + ", gender=" + gender + ", email=" + email + ", books="
 				+ books + ", address=" + address + "]";
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 

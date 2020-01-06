@@ -21,6 +21,7 @@ $(document).ready(
 					memberId : $("#memberId").val(),
 					memberName : $("#memberName").val(),
 					gender : $("#gender").val(),
+					email : $("email").val(),
 					address: addressVal
 				}
 

@@ -8,7 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * http://localhost:8080/home
  * 
  */
-@SpringBootApplication
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 public class SpringBootAjaxApplication {
 
 	public static void main(String[] args) {

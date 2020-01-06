@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
-import com.example.ajax.api.model.Address;
 import com.example.ajax.api.model.Book;
 import com.example.ajax.api.model.LibraryMember;
 import com.example.ajax.api.model.ServiceResponse;
