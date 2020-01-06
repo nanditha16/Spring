@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1" />
+<title>Library Member Registration</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<script src="/postrequestlibrarymember.js"></script>
+<script src="/getrequestforrent.js"></script>
+</head>
+<body>
+	<div id="postResultDiv" align="center"></div>
+	<div class="container">
+		<h2>Stacked form</h2>
+		<form id="librayMemberRegistrationForm"  onsubmit="return false">
+			<div class="form-group">
+				<label for="memberId">Library Member ID:</label> <input type="text"
+					class="form-control" id="memberId"
+					placeholder="Enter Library Member Id" name="memberId">
+			</div>
+			<div class="form-group">
+				<label for="memberName">Library Member Name:</label> <input
+					type="text" class="form-control" id="memberName"
+					placeholder="Enter Library Member Name" name="memberName">
+			</div>
+			<div class="form-group">
+				<label for=gender>Gender :</label> <input type="text"
+					class="form-control" id="gender" placeholder="Enter Gender"
+					name="gender">
+			</div>
+
+			<table class="addressForm">
+				<tr>
+					<td>City:</td>
+					<td><input type="text" id="city" /></td>
+				</tr>
+				<tr>
+					<td>State:</td>
+					<td><input type="text" id="state" /></td>
+				</tr>
+				<tr>
+					<td>Pin Code:</td>
+					<td><input type="text" id="pincode" /></td>
+				</tr>
+			</table>
+
+			<div class="form-group form-check">
+				<label class="form-check-label"> <input
+					class="form-check-input" type="checkbox" name="remember">
+					Remember me
+				</label>
+			</div>
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</form>
+		
+		<br />
+		
+		<div class="col-sm-7" style="margin: 20px 0px 20px 0px">
+		
+			<button id="rentableBooks" type="button" class="btn btn-primary">Get
+				books to Rent</button>
+		
+
+			<!-- <div id="getResultDiv" style="padding: 20px 10px 20px 50px">
+				<ul class="list-group">
+				</ul>
+			</div> -->
+
+
+			<ul class="list-group" id="device-list"></ul>
+
+			<div id="quick-view-device-modal" class="modal fade" tabindex="-1"
+				role="dialog" aria-hidden="true">
+				<div class="modal-dialog">
+
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h4 class="modal-title">Add to Library Member</h4>
+						</div>
+						<div class="modal-body">
+							<p>Please enter the memberId</p>
+						</div>
+						<div class="modal-body">
+							<input class="form-control" name="memberIdRent" id="memberIdRent">
+						</div>
+						<div class="modal-body">
+							<p>Please enter the bookId</p>
+						</div>
+						<div class="modal-body">
+							<input class="form-control" name="bookIdRent" id="bookIdRent">
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">Close</button>
+							<!--  <button type="button" class="btn btn-primary">Save changes</button>-->
+							<button id="rentBook" type="button" class="btn btn-primary"
+								data-dismiss="modal">Save</button>
+
+							<!--  <button id="rentBook" class="btn btn-width bkgrnd-cyan" type="button" name="save-details">Save</button>-->
+						</div>
+
+					</div>
+					<!-- /.modal-content -->
+
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!-- /.modal -->
+
+
+		</div>
+	</div>
+</body>
+</html>
