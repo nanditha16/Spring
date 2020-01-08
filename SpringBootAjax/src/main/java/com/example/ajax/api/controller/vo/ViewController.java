@@ -10,7 +10,7 @@ public class ViewController {
 	public String home() {
 		return "home"; // return html page with name home
 	}
-	
+
 	@GetMapping("/libraryMember")
 	public String libraryMember() {
 		return "libraryMember"; // return html page with name home

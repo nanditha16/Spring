@@ -4,7 +4,7 @@ public class Address {
 	private String city;
 	private String state;
 	private String pincode;
-	
+
 	public Address() {
 		super();
 	}
@@ -44,6 +44,5 @@ public class Address {
 	public String toString() {
 		return "Address [city=" + city + ", state=" + state + ", pincode=" + pincode + "]";
 	}
-	
-	
+
 }

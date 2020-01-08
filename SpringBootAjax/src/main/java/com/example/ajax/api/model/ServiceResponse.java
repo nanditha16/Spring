@@ -3,7 +3,7 @@ package com.example.ajax.api.model;
 public class ServiceResponse<T> {
 	private String status;
 	private T data;
-	
+
 	public ServiceResponse() {
 		super();
 	}
@@ -34,6 +34,5 @@ public class ServiceResponse<T> {
 	public String toString() {
 		return "ServiceResponse [status=" + status + ", data=" + data + "]";
 	}
-	
-	
+
 }

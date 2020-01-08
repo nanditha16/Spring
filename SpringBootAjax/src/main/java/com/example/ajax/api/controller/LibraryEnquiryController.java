@@ -24,129 +24,123 @@ import com.example.ajax.api.service.LibraryService;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 
-
 @RestController
 public class LibraryEnquiryController {
 	final static Logger logger = LoggerFactory.getLogger(LibraryEnquiryController.class);
 
 	@Autowired
 	private LibraryService libraryService;
-	
+
 	/*
 	 * To save the new books in the library
 	 */
 	// Save book - post
 	@PostMapping("/saveBook")
 	@JsonDeserialize(using = LocalDateDeserializer.class)
-	public ResponseEntity<Object> addBook(@RequestBody Book book){
+	public ResponseEntity<Object> addBook(@RequestBody Book book) {
 		logger.info("Invoking saveBook endpoint... ");
-		ServiceResponse<Book> response = new ServiceResponse<Book>("success",book );
+		ServiceResponse<Book> response = new ServiceResponse<Book>("success", book);
 		response.getData().setPurchasedDate(LocalDate.now());
-		//response.getData().setBookStatus("Available");
+		// response.getData().setBookStatus("Available");
 		logger.info("Save Book details in bookCollection_db Collection... ");
-		//use bookCollection_db - hard entry
+		// use bookCollection_db - hard entry
 		libraryService.addToLibrary(book);
-		
-		return new ResponseEntity<Object>(response, HttpStatus.OK);		
+
+		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
-	
-	
+
 	/*
 	 * To save the new libraryMember registered to the library
 	 */
 	// Save book - post
 	@PostMapping("/saveLibraryMember")
-	public ResponseEntity<Object> savelibraryMember(@RequestBody LibraryMember libraryMember){
-			
+	public ResponseEntity<Object> savelibraryMember(@RequestBody LibraryMember libraryMember) {
+
 		logger.info("Invoking savelibraryMember  endpoint... ");
-		
-		ServiceResponse<LibraryMember> response = new ServiceResponse<LibraryMember>("success",libraryMember );
+
+		ServiceResponse<LibraryMember> response = new ServiceResponse<LibraryMember>("success", libraryMember);
 		logger.info("Save libraryMember details in bookCollection_db Collection... ");
-		//use bookCollection_db - hard entry
-		libraryService.registerLibraryMember(libraryMember);		
-		return new ResponseEntity<Object>(response, HttpStatus.OK);		
+		// use bookCollection_db - hard entry
+		libraryService.registerLibraryMember(libraryMember);
+		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
-	
-	
-	//UPDATES
-	
+
+	// UPDATES
+
 	/*
-	 * update BookStatus with the "rented" by BookId and 
-	 * update the Library member with the book rented
+	 * update BookStatus with the "rented" by BookId and update the Library member
+	 * with the book rented
 	 */
 	@PostMapping("/rentBookByBookId/{memberId}/{bookId}")
 	public ResponseEntity<Object> rentBookByBookId(@PathVariable String memberId, @PathVariable int bookId) {
 		logger.info("Invoking rentBookByBookId  endpoint... ");
-		
+
 		// get the Library Member by memberId to update the bookList he rents
-		Optional<LibraryMember> libraryMember =  libraryService.getLibraryMemberById(memberId);
-		
+		Optional<LibraryMember> libraryMember = libraryService.getLibraryMemberById(memberId);
+
 		// get the Book by it's id and update the bookstatus
 		Book updatedBook = libraryService.updateBookStatusByBookId(bookId);
-		
+
 		libraryService.updateLibraryMemberWithRentedBook(libraryMember, updatedBook);
-		
-		return new ResponseEntity<Object>(HttpStatus.OK);	
+
+		return new ResponseEntity<Object>(HttpStatus.OK);
 	}
 
-	//Different GET ways to query for Books
+	// Different GET ways to query for Books
 
-	
 	/*
 	 * To get the list of all the books present in the library
 	 */
 	@GetMapping("/getBooks")
 	// Retrieve data - get
-	public ResponseEntity<Object> getAllBooks(){
+	public ResponseEntity<Object> getAllBooks() {
 		logger.info("Invoking getAllBooks endpoint... ");
 		List<Book> books = libraryService.getAllBooks();
-		
-		ServiceResponse<List<Book>> response = new ServiceResponse<List<Book>>("success",books );
-		return new ResponseEntity<Object>(response, HttpStatus.OK);		
+
+		ServiceResponse<List<Book>> response = new ServiceResponse<List<Book>>("success", books);
+		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
-	
+
 	/*
 	 * To get the list of books by bookId
 	 */
 	@GetMapping("/getBookByBookId/{bookId}")
-	public ResponseEntity<Object> getBookByBookId(@PathVariable int bookId){
+	public ResponseEntity<Object> getBookByBookId(@PathVariable int bookId) {
 		logger.info("Invoking getBookByBookId  endpoint... ");
-		
+
 		Book book = libraryService.getBookByBookId(bookId);
-		ServiceResponse<Book> response = new ServiceResponse<Book>("success",book );
-		return new ResponseEntity<Object>(response, HttpStatus.OK);	
+		ServiceResponse<Book> response = new ServiceResponse<Book>("success", book);
+		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
-	
+
 	/*
-	 * To get the list of all the books present and available for rent in the library
+	 * To get the list of all the books present and available for rent in the
+	 * library
 	 */
 	@GetMapping("/getRentableBooks")
 	// Retrieve data - get
-	public ResponseEntity<Object> getRentableBooks(){
+	public ResponseEntity<Object> getRentableBooks() {
 		logger.info("Invoking getRentableBooks endpoint... ");
 		Optional<List<Book>> books = libraryService.rentableBooks();
-		
-		ServiceResponse<Optional<List<Book>>> response = new ServiceResponse<Optional<List<Book>>>("success",books );
-		return new ResponseEntity<Object>(response, HttpStatus.OK);		
+
+		ServiceResponse<Optional<List<Book>>> response = new ServiceResponse<Optional<List<Book>>>("success", books);
+		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
-	
+
 	/*
 	 * To get the list of all the books present in the library by author
 	 */
 	@GetMapping("/getBooksByAuthor/{bookAuthor}")
-	public ResponseEntity<Object> getBooksByAuthor(@PathVariable String bookAuthor){
+	public ResponseEntity<Object> getBooksByAuthor(@PathVariable String bookAuthor) {
 		logger.info("Invoking getBooksByAuthor  endpoint... ");
-		
+
 		Optional<List<Book>> books = libraryService.getBooksByAuthor(bookAuthor);
-		ServiceResponse<Optional<List<Book>>> response = new ServiceResponse<Optional<List<Book>>>("success",books );
-		return new ResponseEntity<Object>(response, HttpStatus.OK);	
+		ServiceResponse<Optional<List<Book>>> response = new ServiceResponse<Optional<List<Book>>>("success", books);
+		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
-	
-	
-	
-	
-	// Different GET ways to query for getting Library Members 
-	
+
+	// Different GET ways to query for getting Library Members
+
 	/*
 	 * To get the list of library member by city
 	 */
@@ -159,34 +153,35 @@ public class LibraryEnquiryController {
 				libraryMembers);
 		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
-	
+
 	/*
-	* To get the library member details by their Name
-	*/
+	 * To get the library member details by their Name
+	 */
 	@GetMapping("/getLibraryMemberByName/{name}")
 	// Retrieve data - get
-	public ResponseEntity<Object> getLibraryMemberByName(@PathVariable String name){
+	public ResponseEntity<Object> getLibraryMemberByName(@PathVariable String name) {
 		logger.info("Invoking getLibraryMemberByName  endpoint... ");
-		
+
 		Optional<LibraryMember> libraryMemberDetails = libraryService.getLibraryMemberByName(name);
-		
-		ServiceResponse<Optional<LibraryMember>> response = new ServiceResponse<Optional<LibraryMember>>("success",libraryMemberDetails );
-		return new ResponseEntity<Object>(response, HttpStatus.OK);		
+
+		ServiceResponse<Optional<LibraryMember>> response = new ServiceResponse<Optional<LibraryMember>>("success",
+				libraryMemberDetails);
+		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
 
 	/*
-	* To get the library member details by their memberId - unique
-	*/
+	 * To get the library member details by their memberId - unique
+	 */
 	@GetMapping("/getLibraryMemberById/{memberId}")
 	// Retrieve data - get
-	public ResponseEntity<Object> getLibraryMemberById(@PathVariable String memberId){
+	public ResponseEntity<Object> getLibraryMemberById(@PathVariable String memberId) {
 		logger.info("Invoking getLibraryMemberById  endpoint... ");
-		
+
 		Optional<LibraryMember> libraryMemberDetails = libraryService.getLibraryMemberById(memberId);
-		
-		ServiceResponse<Optional<LibraryMember>> response = new ServiceResponse<Optional<LibraryMember>>("success",libraryMemberDetails );
-		return new ResponseEntity<Object>(response, HttpStatus.OK);		
+
+		ServiceResponse<Optional<LibraryMember>> response = new ServiceResponse<Optional<LibraryMember>>("success",
+				libraryMemberDetails);
+		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
 
-	
 }

@@ -7,25 +7,26 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "libraryMember")
 public class LibraryMember {
-	
+
 	@Id
 	private String memberId;
-	
+
 	private String memberName;
 	private String gender;
 	private String email;
-	
+
 	// one to many relation
 	private List<Book> books;
-	
+
 	// one to one relation
 	private Address address;
-	
+
 	public LibraryMember() {
 		super();
 	}
 
-	public LibraryMember(String memberId, String memberName, String gender, String email, List<Book> books, Address address) {
+	public LibraryMember(String memberId, String memberName, String gender, String email, List<Book> books,
+			Address address) {
 		super();
 		this.memberId = memberId;
 		this.memberName = memberName;
@@ -77,8 +78,8 @@ public class LibraryMember {
 
 	@Override
 	public String toString() {
-		return "LibraryMember [memberId=" + memberId + ", memberName=" + memberName + ", gender=" + gender + ", email=" + email + ", books="
-				+ books + ", address=" + address + "]";
+		return "LibraryMember [memberId=" + memberId + ", memberName=" + memberName + ", gender=" + gender + ", email="
+				+ email + ", books=" + books + ", address=" + address + "]";
 	}
 
 	public String getEmail() {
@@ -89,6 +90,4 @@ public class LibraryMember {
 		this.email = email;
 	}
 
-
-	
 }
