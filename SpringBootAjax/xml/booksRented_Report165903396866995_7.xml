@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Book>
+	<Book>
+		<id>5e12e6b2bf244f007409615d</id>
+		<bookId>2</bookId>
+		<bookName>If Tommorow comes</bookName>
+		<bookAuthor>Sydney Sheldon</bookAuthor>
+		<purchasedDate>2020-01-05</purchasedDate>
+		<bookStatus>Rented</bookStatus>
+	</Book>
+	<Book>
+		<id>5e12e69ebf244f007409615c</id>
+		<bookId>1</bookId>
+		<bookName>Sweet Revenge</bookName>
+		<bookAuthor>Nora Roberts</bookAuthor>
+		<purchasedDate>2020-01-05</purchasedDate>
+		<bookStatus>Rented</bookStatus>
+	</Book>
+</Book>

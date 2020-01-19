@@ -40,6 +40,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 
 import com.example.ajax.api.model.Book;
 import com.example.ajax.api.model.LibraryMember;
+import com.example.ajax.api.util.DateConverter;
 import com.example.ajax.api.util.MailUtility;
 
 @Configuration
@@ -61,6 +62,9 @@ public class RentedBooksReportAndEmailNotificationBatchConfig {
 	@Autowired
 	private MailUtility mailUtil;
 
+	@Autowired
+	private DateConverter dateConverter;
+	
 	@Autowired
 	JobLauncher jobLauncher;
 
@@ -174,10 +178,12 @@ public class RentedBooksReportAndEmailNotificationBatchConfig {
 
 	private XStreamMarshaller marshallerBook() {
 		XStreamMarshaller marshaller = new XStreamMarshaller();
-		// TODO: Handle LocalDate Serialization and Deserialization
+		
+		// Handle LocalDate Serialization and Deserialization in XStream while writing to xml
+		marshaller.setConverters(dateConverter);
+		
 		Map<String, Class> toBeSerializedMap = new HashMap<String, Class>();
 		toBeSerializedMap.put("Book", Book.class);
-
 		marshaller.setAliases(toBeSerializedMap);
 		return marshaller;
 	}
