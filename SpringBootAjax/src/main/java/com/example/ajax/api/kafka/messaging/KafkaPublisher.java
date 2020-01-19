@@ -1,6 +1,8 @@
 package com.example.ajax.api.kafka.messaging;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -11,6 +13,8 @@ import org.springframework.web.client.RestTemplate;
 
 @RestController
 public class KafkaPublisher {
+
+	final static Logger logger = LoggerFactory.getLogger(KafkaPublisher.class);
 
 	@Autowired
 	private KafkaTemplate<String, Object> kafkaTemplate;
@@ -38,8 +42,9 @@ public class KafkaPublisher {
 		ResponseEntity<Object> responseEntity = restTemplate.getForEntity(uri, Object.class);
  
 		// We have changed the Kafka publisher config to handle serialization
-		kafkaTemplate.send(topic, "Hi Subscribers. Book list: "
-				+ "\n" + responseEntity.getBody() );
+		// TODO: handle deserialising both string and Json together
+		
+		kafkaTemplate.send(topic, responseEntity.getBody() );
 		return "Json Data published";
 	}
 }
